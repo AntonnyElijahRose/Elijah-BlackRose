@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ellay Blackrose — Ficha de Personagem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #c8445a;
+    --rose-light: #f2bdc7;
+    --rose-dark: #7a1a2e;
+    --gold: #c9a84c;
+    --ash: #8a7880;
+    --bg: #faf6f8;
+    --surface: #ffffff;
+    --surface2: #f5eff2;
+    --border: rgba(0,0,0,0.10);
+    --text: #1a1014;
+    --text2: #6b555e;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e080b;
+      --surface: #17100f;
+      --surface2: #1f1418;
+      --border: rgba(255,255,255,0.09);
+      --text: #f0e8ec;
+      --text2: #9c8890;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--surface);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 0.5px solid var(--border);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 300px;
+    display: flex;
+    align-items: flex-end;
+    padding: 2.5rem 2.5rem 2rem;
+    background: #100a0d;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, #3a0f1f 0%, #100a0d 65%);
+  }
+
+  .hero-thorns {
+    position: absolute;
+    right: -20px; top: -20px;
+    width: 340px; height: 340px;
+    opacity: 0.18;
+  }
+
+  .hero-content { position: relative; z-index: 2; flex: 1; }
+
+  .tagline {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: #f5eff2;
+    line-height: 1.0;
+  }
+
+  .hero-name em { font-style: italic; color: #f2bdc7; }
+
+  .hero-subtitle {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #8a7880;
+    margin-top: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(200,68,90,0.15);
+    border: 0.5px solid rgba(200,68,90,0.4);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #f2bdc7;
+    margin-top: 1rem;
+    text-transform: uppercase;
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rose);
+    animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.4; transform:scale(0.65); }
+  }
+
+  /* SECTIONS */
+  .section { padding: 2rem 2.5rem 0; }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rose);
+    border-left: 2px solid var(--rose);
+    padding-left: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  /* DATA GRID */
+  .data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .data-cell { background: var(--surface); padding: 0.9rem 1rem; }
+  .data-cell.full { grid-column: 1 / -1; }
+
+  .data-key {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 4px;
+  }
+
+  .data-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.35;
+  }
+
+  .data-val.accent { color: var(--rose); }
+  .data-val.gold   { color: var(--gold); }
+  .data-val.blue   { color: #5b8fc4; }
+  .data-val.pink   { color: #c8709a; }
+  .data-val.small  { font-size: 13px; font-weight: 400; font-style: italic; }
+  .data-val.smaller{ font-size: 13px; font-weight: 300; }
+
+  /* DIVIDER */
+  .divider {
+    height: 0.5px;
+    background: var(--border);
+    margin: 1.5rem 2.5rem;
+    position: relative;
+  }
+
+  .divider::after {
+    content: '✦';
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%,-50%);
+    background: var(--surface);
+    padding: 0 8px;
+    font-size: 10px;
+    color: var(--rose);
+  }
+
+  /* PROSE */
+  .prose {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.85;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  .prose strong {
+    font-weight: 600;
+    font-style: normal;
+    color: var(--rose);
+  }
+
+  /* TRAITS */
+  .trait-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .trait-pill {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    color: var(--text2);
+    background: var(--surface2);
+  }
+
+  .trait-pill.hot {
+    border-color: rgba(200,68,90,0.4);
+    color: var(--rose);
+    background: rgba(200,68,90,0.06);
+  }
+
+  /* DISCIPLINES */
+  .discipline-block {
+    background: var(--surface2);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .disc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .disc-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .disc-level { display: flex; gap: 5px; align-items: center; }
+
+  .pip {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 0.5px solid var(--text2);
+  }
+
+  .pip.on { background: var(--rose); border-color: var(--rose); }
+
+  .disc-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  /* QUOTE */
+  .origin-quote {
+    border-left: 2px solid var(--rose);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    background: rgba(200,68,90,0.04);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .origin-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text2);
+    line-height: 1.75;
+  }
+
+  .origin-quote cite {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-top: 6px;
+    font-style: normal;
+  }
+
+  /* CONCEPT BOX */
+  .concept-box {
+    background: #100a0d;
+    border-radius: 10px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .concept-box .section-label { color: #c8445a; }
+
+  .concept-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
+    color: #c9b8be;
+    line-height: 1.9;
+  }
+
+  .concept-text strong {
+    font-weight: 600;
+    font-style: normal;
+    color: #f2bdc7;
+  }
+
+  /* SEAL */
+  .seal {
+    text-align: center;
+    padding: 2rem 1rem 2.5rem;
+  }
+
+  .seal-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--rose);
+    margin-bottom: 8px;
+    letter-spacing: 0.3em;
+  }
+
+  .seal-text {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text2);
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: white; padding: 0; }
+    .card { box-shadow: none; border: none; border-radius: 0; max-width: 100%; }
+    .dot { animation: none; }
+  }
+
+  @media (max-width: 520px) {
+    .hero-name { font-size: 40px; }
+    .section { padding: 1.5rem 1.25rem 0; }
+    .divider { margin: 1.5rem 1.25rem; }
+    .data-grid { grid-template-columns: 1fr; }
+    .data-cell.full { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <svg class="hero-thorns" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M150 10 C160 50 200 80 290 90 C220 100 180 140 190 200 C170 160 130 150 80 170 C120 140 110 90 150 10Z" stroke="#c8445a" stroke-width="0.8" fill="none"/>
+      <path d="M200 30 C210 60 240 80 280 70 C250 90 230 120 240 160 C220 130 190 130 160 150 C190 120 185 80 200 30Z" stroke="#c8445a" stroke-width="0.6" fill="none"/>
+      <path d="M100 50 C90 80 60 90 20 80 C55 100 65 140 50 180 C75 145 110 145 140 160 C110 130 115 90 100 50Z" stroke="#c8445a" stroke-width="0.5" fill="none"/>
+      <circle cx="150" cy="10" r="3" fill="#c8445a" opacity="0.6"/>
+      <circle cx="200" cy="30" r="2" fill="#c8445a" opacity="0.5"/>
+      <circle cx="100" cy="50" r="2.5" fill="#c8445a" opacity="0.5"/>
+      <path d="M130 200 Q150 230 170 220 Q160 250 140 260 Q150 240 130 200Z" fill="#c8445a" opacity="0.3"/>
+      <path d="M160 190 Q175 215 190 205 Q182 232 165 240 Q172 222 160 190Z" fill="#c8445a" opacity="0.25"/>
+    </svg>
+    <div class="hero-content">
+      <p class="tagline">Ficha de Personagem — Vampiro: A Máscara</p>
+      <h1 class="hero-name"><em>Ellay</em><br>Blackrose</h1>
+      <p class="hero-subtitle">Anthony Elijah Rose — Congelado em 1996</p>
+      <span class="hero-badge"><span class="dot"></span>Ancilla de Prestígio — Camarilla</span>
+    </div>
+  </div>
+
+  <!-- IDENTIDADE -->
+  <div class="section" style="margin-top:1.75rem;">
+    <p class="section-label">Registros de Identidade</p>
+    <div class="data-grid">
+      <div class="data-cell">
+        <p class="data-key">Nome Mortal</p>
+        <p class="data-val">Elijah Rose</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Nome Social</p>
+        <p class="data-val accent">Ellay, O Diretor</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Idade Aparente</p>
+        <p class="data-val">20 anos</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Ano do Abraço</p>
+        <p class="data-val gold">1996</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Clã</p>
+        <p class="data-val">Toreador</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Geração</p>
+        <p class="data-val accent">7ª Geração</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Sire</p>
+        <p class="data-val">Evellyne Blackrose</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Seita</p>
+        <p class="data-val">Camarilla</p>
+      </div>
+      <div class="data-cell full">
+        <p class="data-key">Alinhamento</p>
+        <p class="data-val">Neutro / Caótico — o pavão que anda na corda bamba entre a genialidade e o caos</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- APARÊNCIA -->
+  <div class="section">
+    <p class="section-label">Aparência & Presença</p>
+    <div class="data-grid">
+      <div class="data-cell full">
+        <p class="data-key">Fisionomia</p>
+        <p class="data-val small">Traços refinados e andróginos. Pele quente e bronzeada congelada nos vinte anos. Queixo arredondado, maxilar de linhas suaves. Sorriso sutil que exala confiança calculada.</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Olhos (humanos)</p>
+        <p class="data-val blue">Azul gélido</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Olhos (reais)</p>
+        <p class="data-val pink">Rosa profundo ✦</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Cabelo</p>
+        <p class="data-val smaller">Loiro platinado, mechas e pontas rosadas. Médio, despojado.</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Estatura</p>
+        <p class="data-val">1,60 m<br><span style="font-size:12px;color:var(--text2);font-weight:300;">(1,70+ com saltos)</span></p>
+      </div>
+      <div class="data-cell full">
+        <p class="data-key">Tatuagem Característica</p>
+        <p class="data-val small">Blackwork botânico — rosas negras e espinhos que envolvem o pescoço como uma gargantilha, fecham a parte traseira dos ombros e serpenteiam pelo braço e lateral do tronco em alto contraste.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PERSONALIDADE -->
+  <div class="section">
+    <p class="section-label">Arquitetura da Personalidade</p>
+    <div class="prose">
+      Elijah é um <strong>pavão melancólico</strong> — exuberante na superfície, espinhoso por dentro. A energia maníaca dos anos 90 que o definiu em vida não morreu com o coração; foi amplificada pela imortalidade, transformando cada interação num set de filmagem onde ele é, invariavelmente, <strong>a cena principal</strong>.
+    </div>
+    <div class="prose">
+      Como legítimo geminiano, sua dualidade não é falha — é <strong>método</strong>. Comunicador nato e espalhafatoso ao extremo, cativa com carisma reluzente enquanto esconde espinhos letais sob a fachada vibrante. É liberal, gentil e amigável com facilidade, mas reage com veneno a críticas do seu trabalho. O elogio é combustível; a crítica negativa é uma faísca no barril de pólvora.
+    </div>
+    <div class="prose">
+      Sua maior fraqueza não é o sol — é a <strong>inconstância criativa</strong>: picos de euforia produtiva se alternam com bloqueios que o deixam genuinamente perturbado. Começa uma tela, larga para compor. Compõe, larga para escrever um poema. A beleza é sua religião, a feiura seu maior pecado. Detesta o batido, o sem-graça, o fora de moda — exceto os anos 90, que julga atemporais e intocáveis.
+    </div>
+    <div class="trait-row">
+      <span class="trait-pill hot">Vaidoso</span>
+      <span class="trait-pill hot">Possessivo com o trabalho</span>
+      <span class="trait-pill hot">Espalhafatoso</span>
+      <span class="trait-pill">Magnético</span>
+      <span class="trait-pill">Inconstante</span>
+      <span class="trait-pill">Dualidade geminiana</span>
+      <span class="trait-pill">Liberal</span>
+      <span class="trait-pill hot">Esteta radical</span>
+      <span class="trait-pill">Enérgico</span>
+      <span class="trait-pill">Imprevisível</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- DISCIPLINAS -->
+  <div class="section">
+    <p class="section-label">Disciplinas</p>
+
+    <div class="discipline-block">
+      <div class="disc-header">
+        <span class="disc-name">Presença</span>
+        <div class="disc-level">
+          <div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div>
+        </div>
+      </div>
+      <p class="disc-desc">Magnetismo cinematográfico que não pede licença. Onde Ellay pisa, a cena se torna dele. O contraste entre beleza carismática e natureza predatória é sua marca registrada — domina sets e massas com igual facilidade.</p>
+    </div>
+
+    <div class="discipline-block">
+      <div class="disc-header">
+        <span class="disc-name">Auspícios</span>
+        <div class="disc-level">
+          <div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+        </div>
+      </div>
+      <p class="disc-desc">A capacidade de enxergar o que a alma humana esconde: as cores da emoção crua, as auras de mentira, os tons de desejo e pavor que nenhuma câmera convencional captura. Para ele, toda pessoa é uma paleta.</p>
+    </div>
+
+    <div class="discipline-block">
+      <div class="disc-header">
+        <span class="disc-name">Celeridade</span>
+        <div class="disc-level">
+          <div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+        </div>
+      </div>
+      <p class="disc-desc">O vigor sobrenatural que substituiu a fragilidade mortal. Enquanto o câncer tornava cada movimento um esforço, a velocidade vampírica faz sua vida humana parecer um filme em câmera lenta — e ele nunca esquece disso.</p>
+    </div>
+
+    <div class="discipline-block">
+      <div class="disc-header">
+        <span class="disc-name">Direção Sensorial (Ilusão)</span>
+        <div class="disc-level">
+          <div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div>
+        </div>
+      </div>
+      <p class="disc-desc">Como um diretor editando o cenário em tempo real, distorce a percepção alheia. Cria visões deslumbrantes ou pesadelos estéticos à escolha — a realidade ao redor dos outros é apenas mais um set à sua disposição.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- OCUPAÇÃO -->
+  <div class="section">
+    <p class="section-label">Ocupação & Talentos</p>
+    <div class="data-grid">
+      <div class="data-cell full">
+        <p class="data-key">Cargo Principal</p>
+        <p class="data-val">Diretor de Cinema & Ator</p>
+      </div>
+      <div class="data-cell full">
+        <p class="data-key">Hobbies & Criações</p>
+        <p class="data-val smaller">Composição musical · Pintura · Instrumentos · Canto · Dança · Poesia · Cinema como obsessão primária — ver filmes e admirar tudo que considera belo</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ORIGEM -->
+  <div class="section">
+    <p class="section-label">A Noite do Abraço — 1996</p>
+    <div class="origin-quote">
+      <p>"O mundo é indigno de você, mas eu... eu me recuso a ver minha peça favorita apodrecer. Diga 'sim' para a obra que nunca termina."</p>
+      <cite>— Evellyne Blackrose, no topo do arranha-céu inacabado</cite>
+    </div>
+    <div class="prose">
+      Aos vinte anos, com o câncer consumindo um gênio em ascensão meteórica, a vaidade do artista provou ser <strong>maior que qualquer moralidade</strong>. Elijah não aceitou a sepultura anônima. No topo de um arranha-céu em construção, iluminado por refletores que imitavam o luar, ele sussurrou "sim" — e não estava se entregando a uma mulher, mas assinando o <strong>contrato eterno com sua própria genialidade</strong>.
+    </div>
+    <div class="prose">
+      O Abraço da 6ª geração inundou suas veias como chumbo derretido, incinerando as células cancerosas em êxtase violento. O coração de Elijah deu a última batida — o tambor final do Garoto de Ouro — e silenciou. Quando ele abriu os olhos, <strong>Anthony Elijah Rose havia nascido</strong>. O cansaço: evaporado. A imortalidade: urgente e faminta.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONCEITO -->
+  <div class="section">
+    <div class="concept-box">
+      <p class="section-label">O Conceito Blackrose</p>
+      <p class="concept-text">
+        As rosas são <strong>atemporais, belas e populares</strong> — mas repletas de espinhos. Elijah as imita: cativa e reluz, mas o perigo aguarda quem o colhe achando-o meramente simpático. O <strong>Black</strong> eleva essa beleza a um patamar mórbido: a elegância que existe do outro lado da morte, a estética que floresce justamente onde a luz não alcança.
+      </p>
+    </div>
+  </div>
+
+  <!-- DIRETRIZES -->
+  <div class="section">
+    <p class="section-label">Diretrizes de Interação</p>
+    <div class="data-grid">
+      <div class="data-cell">
+        <p class="data-key">Interpretativo</p>
+        <p class="data-val smaller">Tramas políticas, jogos de influência, disputas de poder artístico, intrigas da Camarilla.</p>
+      </div>
+      <div class="data-cell">
+        <p class="data-key">Conversativo</p>
+        <p class="data-val smaller">Diálogos rápidos, ácidos, repletos de referências visuais e estéticas.</p>
+      </div>
+      <div class="data-cell full">
+        <p class="data-key">Tom Característico</p>
+        <p class="data-val small">"O mundo inteiro é o meu set de filmagem. Cada pessoa que entra em cena, eu enquadro. Cada beleza que vejo, eu capturo. Cada coisa feia que tenta existir perto de mim — eu cuto."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEAL -->
+  <div class="seal">
+    <p class="seal-mark">✦ ✦ ✦</p>
+    <p class="seal-text">Blackrose · Toreador · 7ª Geração · Camarilla · Est. 1996</p>
+  </div>
+
+</div>
+</body>
+</html>
